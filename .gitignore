@@ -1,0 +1,7 @@
+build/
+*.apk
+debug.keystore
+Orion-icon.png
+icon-src/*.webp
+icon-src/*.png
+icon-src/*.json

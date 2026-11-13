@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Orion constellation, drawn as vectors so the GitHub code builds standalone
+     (no binary icon files needed). Gold stars and connecting lines on the
+     navy background from @color/ic_launcher_background. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M30,30 L43,54 M78,30 L65,54 M30,78 L43,54 M78,78 L65,54 M43,54 L65,54"
+        android:strokeColor="#E8C766"
+        android:strokeWidth="1.4"
+        android:strokeLineCap="round" />
+    <path
+        android:fillColor="#F2CE6B"
+        android:pathData="M30,22 L31.8,28.2 L38,30 L31.8,31.8 L30,38 L28.2,31.8 L22,30 L28.2,28.2 Z M78,22 L79.8,28.2 L86,30 L79.8,31.8 L78,38 L76.2,31.8 L70,30 L76.2,28.2 Z M30,70 L31.8,76.2 L38,78 L31.8,79.8 L30,86 L28.2,79.8 L22,78 L28.2,76.2 Z M78,70 L79.8,76.2 L86,78 L79.8,79.8 L78,86 L76.2,79.8 L70,78 L76.2,76.2 Z M43,47.5 L44.4,52.6 L49.5,54 L44.4,55.4 L43,60.5 L41.6,55.4 L36.5,54 L41.6,52.6 Z M54,47.5 L55.4,52.6 L60.5,54 L55.4,55.4 L54,60.5 L52.6,55.4 L47.5,54 L52.6,52.6 Z M65,47.5 L66.4,52.6 L71.5,54 L66.4,55.4 L65,60.5 L63.6,55.4 L58.5,54 L63.6,52.6 Z" />
+</vector>
