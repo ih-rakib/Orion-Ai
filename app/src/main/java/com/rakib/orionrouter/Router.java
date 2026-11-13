@@ -80,12 +80,16 @@ public class Router {
 
     /** One provider + one model. A provider with several models expands to several endpoints. */
     public static class Endpoint {
+        /** Stable provider id (for counters); never shown to the user. */
+        public final String providerId;
+        /** Display name shown in logs and answer labels. */
         public final String provider;
         public final String baseUrl;
         public final String key;
         public final String model;
 
-        public Endpoint(String provider, String baseUrl, String key, String model) {
+        public Endpoint(String providerId, String provider, String baseUrl, String key, String model) {
+            this.providerId = providerId;
             this.provider = provider;
             this.baseUrl = baseUrl;
             this.key = key;
@@ -101,7 +105,7 @@ public class Router {
         public String text = "";
         public String answeredBy = "";
         public int attempts = 0;
-        /** One outcome per endpoint tried: provider -> "ok" / "limit" / "fail". */
+        /** One outcome per endpoint tried: provider id -> "ok" / "limit" / "fail". */
         public final List<String[]> outcomes = new ArrayList<>();
     }
 
@@ -110,7 +114,7 @@ public class Router {
         cancelled = false;
         Result result = new Result();
         if (chain == null || chain.isEmpty()) {
-            logger.log("No provider ready: enable at least one provider and paste its key, then Save.");
+            logger.log("No provider ready: add a provider and paste its key, then Save.");
             return result;
         }
         if (messages == null || messages.isEmpty()) {
@@ -143,7 +147,7 @@ public class Router {
                 if (cancelled) return stopped(result, logger);
                 if (attempt.ok) {
                     logger.log("OK  " + ep.label() + "  (" + ms + " ms)");
-                    result.outcomes.add(new String[]{ep.provider, "ok"});
+                    result.outcomes.add(new String[]{ep.providerId, "ok"});
                     result.ok = true;
                     result.text = attempt.text;
                     result.answeredBy = ep.label();
@@ -162,7 +166,7 @@ public class Router {
                     continue;
                 }
                 logger.log("FAIL " + ep.label() + "  " + attempt.error + "  (" + ms + " ms)");
-                result.outcomes.add(new String[]{ep.provider, attempt.rateLimited ? "limit" : "fail"});
+                result.outcomes.add(new String[]{ep.providerId, attempt.rateLimited ? "limit" : "fail"});
                 break;
             }
         }

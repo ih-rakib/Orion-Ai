@@ -13,7 +13,7 @@ purpose: renaming it would make upgrades forget saved keys). This is a
 different app from the [Orion universe explorer](https://orion-universe.vercel.app/)
 and from [Orion-IDM](https://github.com/ih-rakib/Orion-IDM).
 
-## The chain (all editable in Settings)
+## The chain
 
 Every provider speaks OpenAI-compatible `/chat/completions`, so the
 router just tries each endpoint in order. One attempt per model, plus a
@@ -23,17 +23,24 @@ reply / network error all fall through to the next model. The attempt
 log (Settings) shows the HTTP code and the provider's own error message,
 and never contains a key.
 
-| # | Provider | Default models | Notes |
-|---|----------|---------------|-------|
-| 1 | Groq | `openai/gpt-oss-120b`, `openai/gpt-oss-20b` | First: fastest, biggest free cap |
-| 2 | Google Gemini | `gemini-2.5-flash`, `gemini-2.5-flash-lite` | Via the OpenAI-compatible endpoint |
-| 3 | OpenRouter | `nvidia/nemotron-3-ultra-550b-a55b:free`, `openrouter/free`, `google/gemma-4-31b-it:free` | Free models only; Settings lists the current `:free` ids live |
-| 4 | SambaNova | `gpt-oss-120b`, `Meta-Llama-3.3-70B-Instruct` | Off by default |
-| 5 | Cloudflare Workers AI | `@cf/openai/gpt-oss-120b` | Off by default; paste your Account ID into the base URL |
-| 6 | AgentRouter | `deepseek-v4-flash`, `glm-5.3`, `gpt-5.6-sol` | Free signup credits; premium models burn credits, daily batches, models come and go — see below |
-| 7 | Custom / Gwarden | `deepseek-v4.1-flash-1017` | Off by default; last resort, can be very slow |
+**There are no fixed provider slots.** The provider list lives in
+Settings: add a provider whenever you get a new key, rename it, move it
+up or down to change the chain order, or delete it. Any OpenAI-compatible
+gateway works — paste its base URL (ending in `/v1`), key, and model
+names. The table below is only the starting set on a fresh install;
+upgrades from v1.0–v2.1 keep their saved providers, keys, and any
+customised models or base URLs (same ids, converted automatically).
 
-Untick the top providers to force a harder task onto OpenRouter first.
+| Starting provider | Default models | Notes |
+|---|---|---|
+| Groq | `openai/gpt-oss-120b`, `openai/gpt-oss-20b` | First: fastest, biggest free cap |
+| Google Gemini | `gemini-2.5-flash`, `gemini-2.5-flash-lite` | Via the OpenAI-compatible endpoint |
+| OpenRouter | `nvidia/nemotron-3-ultra-550b-a55b:free`, `openrouter/free`, `google/gemma-4-31b-it:free` | Free models only; Settings lists the current `:free` ids live |
+| SambaNova | `gpt-oss-120b`, `Meta-Llama-3.3-70B-Instruct` | Off by default |
+| Cloudflare Workers AI | `@cf/openai/gpt-oss-120b` | Off by default; paste your Account ID into the base URL |
+| AgentRouter | `deepseek-v4-flash`, `glm-5.3`, `gpt-5.6-sol` | Free signup credits; premium models burn credits, daily batches, models come and go — see below |
+| Custom / Gwarden | `deepseek-v4.1-flash-1017` | Off by default; last resort, can be very slow |
+
 Free-tier limits change often — use "Test all providers" in Settings
 and the live OpenRouter list rather than trusting any fixed numbers.
 
@@ -103,6 +110,9 @@ the same constellation lives only on the author's machine
 
 ## History
 
+- **v2.2** — No fixed slots: providers are a user-managed list
+  (add / rename / reorder / delete in Settings), with automatic
+  migration of saved v1.0–v2.1 providers and keys.
 - **v2.1** — AgentRouter added as provider 6 (DeepSeek V4 Flash,
   GLM-5.3, GPT-5.6 Sol), behind the free providers so credits burn last.
 - **v2.0** — Chatbot interface: bubbles, chats list, Settings screen,
